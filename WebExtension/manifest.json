@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Safari Enter Guard",
   "version": "1.0.0",
-  "description": "Prevents accidental form submission when pressing Enter to confirm Japanese IME conversion in Safari.",
+  "description": "Prevents accidental form submission when pressing Enter to confirm CJK IME conversion in Safari.",
   "action": {
     "default_title": "Safari Enter Guard"
   },

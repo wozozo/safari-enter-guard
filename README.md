@@ -1,6 +1,6 @@
 # Safari Enter Guard
 
-Safari Web Extension that prevents accidental form submission when pressing Enter to confirm Japanese IME conversion.
+Safari Web Extension that prevents accidental form submission when pressing Enter to confirm CJK IME conversion.
 
 ## What it does
 
