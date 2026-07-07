@@ -23,6 +23,13 @@ Build and run locally:
 ./script/build_and_run.sh
 ```
 
+Use it in local Safari:
+
+1. Run the app with `./script/build_and_run.sh`.
+2. In Safari, enable `Develop > Allow Unsigned Extensions`.
+3. Open `Safari > Settings > Extensions`.
+4. Enable Safari Enter Guard and allow it on the sites you want.
+
 Test page:
 
 ```sh
