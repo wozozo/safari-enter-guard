@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Safari Enter Guard">
+  <rect width="128" height="128" rx="24" fill="#1f2937"/>
+  <path d="M83 34v29c0 8-6 14-14 14H48" fill="none" stroke="#f9fafb" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M54 58 35 77l19 19" fill="none" stroke="#f9fafb" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="94" cy="94" r="18" fill="#10b981"/>
+</svg>

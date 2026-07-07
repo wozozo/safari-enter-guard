@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>IME Enter Harness</title>
+    <style>
+      body {
+        color: #111827;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+        margin: 40px;
+        max-width: 720px;
+      }
+
+      form {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+
+      textarea,
+      input,
+      [contenteditable] {
+        border: 1px solid #9ca3af;
+        border-radius: 6px;
+        font: inherit;
+        padding: 12px;
+      }
+
+      textarea,
+      [contenteditable] {
+        min-height: 120px;
+      }
+
+      button {
+        justify-self: start;
+      }
+
+      #log {
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        margin-top: 24px;
+        min-height: 160px;
+        padding: 12px;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>IME Enter Harness</h1>
+    <form class="message-form" data-label="textarea">
+      <label for="textarea-message">Textarea message</label>
+      <textarea id="textarea-message" name="message" autofocus></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <form class="message-form" data-label="input">
+      <label for="input-message">Input message</label>
+      <input id="input-message" name="message">
+      <button type="submit">Send</button>
+    </form>
+    <form class="message-form" data-label="contenteditable">
+      <label for="contenteditable-message">Contenteditable message</label>
+      <div id="contenteditable-message" role="textbox" contenteditable="true"></div>
+      <button type="submit">Send</button>
+    </form>
+    <iframe title="iframe form" srcdoc="<!doctype html><html lang='ja'><body><form class='message-form' data-label='iframe'><label for='iframe-message'>Iframe message</label><textarea id='iframe-message' name='message'></textarea><button type='submit'>Send</button></form><pre id='iframe-log'></pre><script>const form=document.querySelector('.message-form');const message=document.querySelector('#iframe-message');const log=document.querySelector('#iframe-log');let count=0;form.addEventListener('submit',(event)=>{event.preventDefault();count+=1;log.textContent=`submitted ${count}: ${message.value}\n${log.textContent}`;parent.postMessage({label:'iframe', value:message.value, count}, '*');});</script></body></html>"></iframe>
+    <div id="log" aria-live="polite"></div>
+    <script>
+      const log = document.querySelector("#log");
+      const counts = new Map();
+
+      document.querySelectorAll(".message-form").forEach((form) => {
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          const label = form.dataset.label;
+          const target = form.querySelector("[name='message'], [contenteditable]");
+          const value = target.value ?? target.textContent ?? "";
+          const count = (counts.get(label) ?? 0) + 1;
+
+          counts.set(label, count);
+          log.textContent = `submitted ${label} ${count}: ${value}\n${log.textContent}`;
+        });
+      });
+
+      window.addEventListener("message", (event) => {
+        if (event.data?.label !== "iframe") {
+          return;
+        }
+
+        log.textContent = `submitted iframe ${event.data.count}: ${event.data.value}\n${log.textContent}`;
+      });
+    </script>
+  </body>
+</html>
